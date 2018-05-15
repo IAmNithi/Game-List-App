@@ -1,0 +1,51 @@
+<div class="main1">
+  <div class="container">
+  <div class="row top-padding" *ngIf="!loading">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 margin">
+      <div class="row">
+        <div class="col-md-3 col-sm-12 col-xs-12 col-lg-3 search-bar">
+            <div class="form-group">
+                <label>Search</label>
+                <input type="text" [(ngModel)]="search" class="form-control" (ngModelChange)="sort($event)"/>
+          </div>
+        </div>
+      </div>  
+    </div>
+    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 margin" *ngFor="let games of data">
+      <div class="card center-block" style="max-width: 30rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{games?.title}}</h5>
+          <p>Platform: {{games?.platform}}</p>
+          <p>Released Year: {{games?.release_year}}</p>
+          <ngb-rating [rate]="games?.score"></ngb-rating>
+<hr>
+<button class="btn btn-sm btn-outline-success" (click)="viewModal(content,games)">
+  View
+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Detail</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Title: {{individualData.title}}</p>
+      <p>URL: {{individualData.url}}</p>
+      <p>Platform: {{individualData.platform}}</p>
+      <p>Score: {{individualData.score}}</p>
+      <p>Genre: {{individualData.genre}}</p>
+      <p>Editors Choise: {{individualData.editors_choice}}</p>
+      <p>Release Year: {{individualData.release_year}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </ng-template>
+</div>
